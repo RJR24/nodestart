@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <% if (req.isAuthenticated()) { %>
+      <a href="/dashboard">Your Dashboard</a>
+   <% }else{ %>
+      <a href="/auth/register">Register Here</a>
+   <% } %>
+  </body>
+</html> 
