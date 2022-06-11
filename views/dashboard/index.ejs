@@ -1,0 +1,13 @@
+<h1> dashboard </h1>
+<h1>Hi <%= req.user.name %></h1>
+
+<form action="/dashboard/edituser" method="POST" enctype="multipart/form-data">
+  <input type="text" placeholder="name" value="<%= req.user.name %>">
+  <input type="file" name="img">
+  <input type="submit" name="send">
+</form>
+
+
+<a href="/logout" style="color: brown; text-decoration: none; 
+font-size: 20px; border: 1px solid #cccc; padding: 10px 5px; 
+border-radius: 5px; ">logout</a>
