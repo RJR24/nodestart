@@ -3,6 +3,9 @@ const { check } = require("express-validator");
 
 module.exports = new (class editUserValidator extends validator {
   handle() {
-    return [check("name", "name fild can not be empty!").not().isEmpty()];
+    return [
+      check("name", "name field can not be empty!").not().isEmpty(),
+      check("img", "profile picture is required!").not().isEmpty(),
+    ];
   }
 })();
