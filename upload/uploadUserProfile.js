@@ -3,12 +3,12 @@ const mkdir = require("mkdirp");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    mkdir('./public/uploads/images').then(made=>{
-    cb(null, "./public/uploads/images");
-    })
+    mkdir("./public/uploads/images").then((made) => {
+      cb(null, "./public/uploads/images");
+    });
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname + "-" + Date.now());
+    cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
