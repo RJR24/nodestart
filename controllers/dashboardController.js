@@ -3,10 +3,10 @@ const User = require("./../models/user");
 
 const { validationResult } = require("express-validator");
 
-module.exports = new class dashboardController extends controller {
+module.exports = new (class dashboardController extends controller {
   async index(req, res, next) {
     try {
-      res.render('dashboard/index')
+      res.render("dashboard/index");
     } catch (err) {
       next(err);
     }
@@ -20,9 +20,17 @@ module.exports = new class dashboardController extends controller {
         req.flash("errors", myErrors);
         return res.redirect("/dashboard");
       }
-      console.log(req.body);
+      let data = {
+        name: req.body.name,
+      };
+      console.log(req.file);
+      if (req.file) {
+        data.img = req.file.path.replace(/\\/g, "/").substring(6);
+      }
+      await User.updateOne({ _id: req.user.id }, { $set: data });
+      res.redirect("/dashboard");
     } catch (err) {
       next(err);
     }
   }
-}
+})();
