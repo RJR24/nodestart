@@ -1,13 +1,20 @@
 let controller = require("./controller");
 const User = require("../models/user");
 const passport = require("passport");
+const Recaptcha = require("express-recaptcha").RecaptchaV2;
+const options = { hl: "en" };
+const recaptcha = new Recaptcha(
+  "6LfTzWwgAAAAABVv8gFpXXdnitxoEZkNfLd2B1lH",
+  "6LfTzWwgAAAAAA2JDMdEYkr0ufREGjwGs4b-KLs6",
+  options
+);
 
 const { validationResult } = require("express-validator");
 
 class UserController extends controller {
   async registerForm(req, res, next) {
     try {
-      res.render("auth/register");
+      res.render("auth/register", { recaptcha: recaptcha.render() });
     } catch (err) {
       next(err);
     }
@@ -23,6 +30,22 @@ class UserController extends controller {
 
   async register(req, res, next) {
     try {
+      let recaptchaResult = await new Promise((resolve, reject) => {
+        recaptcha.verify(req, (err, data) => {
+          if (err) {
+            req.flash("errors", "please tick the security box!");
+            res.redirect("/auth/register");
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        });
+      });
+
+      if (!recaptchaResult) {
+        return;
+      }
+
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         let myErrors = errors.array().map((err) => err.msg);
