@@ -1,15 +1,33 @@
 <%- include('../components/validation-error') -%>
 
-<h1> dashboard </h1>
+<h1>dashboard</h1>
+<img
+  src="/uploads/images/1655205638891-Ray.jpg"
+  style="width: 100px; border-radius: 50px"
+  alt="profilePicture"
+/>
 <h1>Hi <%= req.user.name %></h1>
 
 <form action="/dashboard/edituser" method="POST" enctype="multipart/form-data">
-  <input type="text" placeholder="name" name="name" value="<%= req.user.name %>">
-  <input type="file" name="img">
-  <input type="submit" value="send">
+  <input
+    type="text"
+    placeholder="name"
+    name="name"
+    value="<%= req.user.name %>"
+  />
+  <input type="file" name="img" />
+  <input type="submit" value="send" />
 </form>
 
-
-<a href="/logout" style="color: brown; text-decoration: none; 
-font-size: 20px; border: 1px solid #cccc; padding: 10px 5px; 
-border-radius: 5px; ">logout</a>
+<a
+  href="/logout"
+  style="
+    color: brown;
+    text-decoration: none;
+    font-size: 20px;
+    border: 1px solid #cccc;
+    padding: 10px 5px;
+    border-radius: 5px;
+  "
+  >logout</a
+>
